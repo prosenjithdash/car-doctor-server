@@ -88,6 +88,40 @@ async function run() {
 
       })
 
+
+
+    // Update BOOKING API
+      app.patch('/bookings/:id', async (req, res) => {
+          const updatedBooking = req.body;
+          console.log(updatedBooking)
+
+  
+          const id = req.params.id;
+          const filter = { _id: new ObjectId(id) };
+
+
+          
+            const updateBooking = {
+            $set: {
+                    status: updatedBooking.status
+            },
+            };
+            const result = await bookingCollection.updateOne(filter, updateBooking);
+    
+            res.send(result)
+
+      })
+
+
+    // Delete BOOKING API
+      app.delete('/bookings/:id', async (req, res) => {
+          const id = req.params.id;
+         const query = { _id : new ObjectId(id) };
+        const result = await bookingCollection.deleteOne(query);
+        res.send(result)
+
+      })
+
     
 
 
